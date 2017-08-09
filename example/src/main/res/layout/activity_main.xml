@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.vinarah.locationtracker.vo.Status"/>
+        <variable
+            name="resource"
+            type="com.vinarah.locationtracker.vo.Resource"/>
+        <variable
+            name="latitude"
+            type="String"/>
+        <variable
+            name="longitude"
+            type="String"/>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.scadsoftware.locationtracker.MainActivity"
+        android:padding="16dp">
+        <ProgressBar
+            app:show="@{resource.status == Status.LOADING}"
+            android:id="@+id/loading_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+        <LinearLayout
+            app:show="@{resource.status == Status.SUCCESS}"
+            android:id="@+id/location_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Latitude:"
+                android:textSize="16dp"/>
+            <TextView
+                android:id="@+id/latitude_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{latitude}"
+                style="@style/TextAppearance.AppCompat.Title"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Longitude:"
+                android:textSize="16dp"/>
+            <TextView
+                android:id="@+id/longitude_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{longitude}"
+                style="@style/TextAppearance.AppCompat.Title"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
+

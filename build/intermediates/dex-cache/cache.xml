@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Work\location-tracker\example\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="C:\Work\location-tracker\example\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_913cab1e86edd484c20ac709af73fbb72c02c674\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Vincent\.android\build-cache\85a2216771e20fc8ff7944fa50791e26c7b39344\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="68956f5ba1517b7a3d513ba540548e257741cbae">
+        <dex dex="C:\Work\location-tracker\example\build\intermediates\transforms\dex\debug\folders\1000\10\classes_55968758c2ad2bc5669f239f43f9274303360a1f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\com\android\databinding\baseLibrary\2.3.3\baseLibrary-2.3.3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="eb3399988a52099b0127e27fb5bed666eca86ace">
+        <dex dex="C:\Work\location-tracker\example\build\intermediates\transforms\dex\debug\folders\1000\10\baseLibrary-2.3.3_cc3afaf91424e734a49c56928e36b4d96c0d272b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Work\location-tracker\example\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="a8c899914e7af5f1350f062b264a65efe4c7dc90">
+        <dex dex="C:\Work\location-tracker\example\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_3626cef78805e92cdcdabd9a3455f302db88a853\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Vincent\.android\build-cache\ae991815ccb20ab6ea8730759c4391d087d10182\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="7f2f348b830f292429db987f74ba3e67c6752322">
+        <dex dex="C:\Work\location-tracker\example\build\intermediates\transforms\dex\debug\folders\1000\10\classes_082a843a9e16e01ac6e7fef04968be85503f1dac\classes.dex" />
+    </item>
+
+</items>
