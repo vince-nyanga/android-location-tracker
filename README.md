@@ -21,8 +21,12 @@ dependencies {
 
 
 ## Usage:
-
-### Create
+Add the following permissions to you Manifest:
+```xml
+ <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+ <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+```
+### Create Tracker
 ```java
  LocationTracker locationTracker = new LocationTrackerBuilder(this)
                 .setPriority(LocationTracker.PRIORITY_HIGH)
