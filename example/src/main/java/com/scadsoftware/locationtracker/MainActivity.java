@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements LifecycleRegistry
             return;
         }
         LocationTracker locationTracker = new LocationTrackerBuilder(this)
+                .setPriority(LocationTracker.PRIORITY_HIGH)
+                .setDisplacement(150)
+                .setInterval(60000)
                 .build();
         locationTracker.observe(this, new Observer<Resource<Location>>() {
             @Override
