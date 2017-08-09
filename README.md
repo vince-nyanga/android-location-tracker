@@ -12,7 +12,7 @@ allprojects {
  }
 }
 ```
-and:
+and in your `app/build.gradle`:
 ```gradle
 dependencies {
     compile 'com.github.vince-nyanga:android-location-tracker:1.0.0-alpha3'
