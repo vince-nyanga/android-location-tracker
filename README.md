@@ -1,9 +1,32 @@
 # Android Location Tracker
 This is a library that helps track one's location in an Android app. It makes use of the Android Architecture Components.
 
-## Usage
+## Installation
+Add this to your project `build.gradle` file:
+```gradle
+allprojects {
+ repositories {
+    jcenter()
+    maven { url 'https://maven.google.com' }
+    maven { url "https://jitpack.io" }
+ }
+}
+```
+and:
+```gradle
+dependencies {
+    compile 'com.github.vince-nyanga:android-location-tracker:1.0.0-alpha2'
+}
+```
 
-### Create
+
+## Usage:
+Add the following permissions to you Manifest:
+```xml
+ <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+ <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+```
+### Create Tracker
 ```java
  LocationTracker locationTracker = new LocationTrackerBuilder(this)
                 .setPriority(LocationTracker.PRIORITY_HIGH)
