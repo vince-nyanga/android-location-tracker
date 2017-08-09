@@ -4,7 +4,20 @@ import android.content.Context;
 import android.support.annotation.RequiresPermission;
 
 @SuppressWarnings("unused")
+/**
+ * This class is used to create a {@link LocationTracker} object.
+ * <p>
+ * Example:
+ * <code>
+ * LocationTracker locationTracker = new LocationTrackerBuilder(this)
+          .setPriority(LocationTracker.PRIORITY_HIGH)
+          .setDisplacement(150)
+          .setInterval(60000)
+          .build();
+ * </code>
+ */
 public class LocationTrackerBuilder {
+
 
     private static final long DEFAULT_INTERVAL = 300000;
 
@@ -55,6 +68,7 @@ public class LocationTrackerBuilder {
      * <li>PRIORITY_HIGH for precise location updates</li>
      * <li>PRIORITY_POWER_SAVER for balancing between power and accuracy</li>
      * <li>PRIORITY_LOW_POWER for low power usage</li>
+     *
      * @param priority
      * @return
      */

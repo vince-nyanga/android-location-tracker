@@ -23,5 +23,5 @@ task clean(type: Delete) {
 }
 
 ext.play_services_version = "11.0.4"
-ext.arch_components_version  = "1.0.0-alpha5"
+ext.arch_components_version  = "1.0.0-alpha8"
 ext.junit_version = "4.12"

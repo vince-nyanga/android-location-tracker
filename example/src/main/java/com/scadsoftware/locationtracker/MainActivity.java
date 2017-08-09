@@ -4,6 +4,8 @@ import android.Manifest;
 import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.arch.lifecycle.Observer;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
@@ -12,6 +14,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.scadsoftware.locationtracker.databinding.ActivityMainBinding;
 import com.vinarah.locationtracker.LocationTracker;
@@ -25,11 +29,13 @@ public class MainActivity extends AppCompatActivity implements LifecycleRegistry
 
     ActivityMainBinding binding;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         subscribeToLocationChanges();
+
     }
 
     private void subscribeToLocationChanges() {
