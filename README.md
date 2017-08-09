@@ -7,6 +7,7 @@ Add this to your project `build.gradle` file:
 allprojects {
  repositories {
     jcenter()
+    maven { url 'https://maven.google.com' }
     maven { url "https://jitpack.io" }
  }
 }
