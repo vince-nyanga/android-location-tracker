@@ -3,7 +3,10 @@ package com.vinarah.locationtracker;
 import android.content.Context;
 import android.support.annotation.RequiresPermission;
 
-@SuppressWarnings("unused")
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+
+
 /**
  * This class is used to create a {@link LocationTracker} object.
  * <p>
@@ -16,6 +19,7 @@ import android.support.annotation.RequiresPermission;
           .build();
  * </code>
  */
+@SuppressWarnings("unused")
 public class LocationTrackerBuilder {
 
 
@@ -53,8 +57,7 @@ public class LocationTrackerBuilder {
      * Sets the minimum displacement in meters that should trigger location update. Default value
      * is 500 meters.
      *
-     * @param displacement
-     * @return
+     * @param displacement minimum displacement in meters
      */
     public LocationTrackerBuilder setDisplacement(int displacement) {
         this.displacement = displacement;
@@ -69,8 +72,7 @@ public class LocationTrackerBuilder {
      * <li>PRIORITY_POWER_SAVER for balancing between power and accuracy</li>
      * <li>PRIORITY_LOW_POWER for low power usage</li>
      *
-     * @param priority
-     * @return
+     * @param priority Priority
      */
     public LocationTrackerBuilder setPriority(@LocationTracker.Priority int priority) {
         this.priority = priority;
@@ -82,7 +84,17 @@ public class LocationTrackerBuilder {
                     ".ACCESS_FINE_LOCATION"}
     )
     public LocationTracker build() {
-        return new LocationTracker(context, interval, displacement, priority);
+        if(isGooglePlayServicesAvailable()) {
+            return new PlayServicesLocationTracker(context, interval, displacement, priority);
+        }else{
+            return  new NativeLocationTracker(context,interval,displacement);
+        }
+    }
+
+    private boolean isGooglePlayServicesAvailable(){
+        GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
+        int result = googleAPI.isGooglePlayServicesAvailable(context);
+        return result == ConnectionResult.SUCCESS;
     }
 
 

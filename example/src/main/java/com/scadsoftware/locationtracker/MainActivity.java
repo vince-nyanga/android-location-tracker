@@ -1,6 +1,7 @@
 package com.scadsoftware.locationtracker;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.arch.lifecycle.Observer;
@@ -14,9 +15,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.scadsoftware.locationtracker.databinding.ActivityMainBinding;
 import com.vinarah.locationtracker.LocationTracker;
 import com.vinarah.locationtracker.LocationTrackerBuilder;
@@ -25,10 +31,13 @@ import com.vinarah.locationtracker.vo.Status;
 
 public class MainActivity extends AppCompatActivity implements LifecycleRegistryOwner {
 
+    private final String TAG = "MainActivity";
+
     private final LifecycleRegistry registry = new LifecycleRegistry(this);
 
-    ActivityMainBinding binding;
+    private ActivityMainBinding binding;
 
+    private LocationTracker locationTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +45,10 @@ public class MainActivity extends AppCompatActivity implements LifecycleRegistry
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         subscribeToLocationChanges();
 
+
     }
+
+
 
     private void subscribeToLocationChanges() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
@@ -46,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleRegistry
                     .ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
             return;
         }
-        LocationTracker locationTracker = new LocationTrackerBuilder(this)
+          locationTracker= new LocationTrackerBuilder(this)
                 .setPriority(LocationTracker.PRIORITY_HIGH)
                 .setDisplacement(150)
                 .setInterval(60000)
@@ -60,9 +72,19 @@ public class MainActivity extends AppCompatActivity implements LifecycleRegistry
                         binding.setLatitude("" + locationResource.value.getLatitude());
                         binding.setLongitude("" + locationResource.value.getLongitude());
                     }
+                    Log.d(TAG, "onChanged: status -> " + locationResource.status);
                 }
             }
         });
+    }
+
+
+    public void toggleTracking(View view){
+        if(view.getId() == R.id.start_btn){
+            locationTracker.start();
+        }else{
+            locationTracker.stop();
+        }
     }
 
     @Override
