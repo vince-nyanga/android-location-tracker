@@ -15,7 +15,7 @@ allprojects {
 and in your `app/build.gradle`:
 ```gradle
 dependencies {
-    compile 'com.github.vince-nyanga:android-location-tracker:1.0.0-alpha5'
+    compile 'com.github.vince-nyanga:android-location-tracker:1.0.0-alpha6'
 }
 ```
 
@@ -26,16 +26,20 @@ Add the following permissions to you Manifest:
  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 ```
-### Create Tracker
+## Tracking
+### 1. Create Tracker
 ```java
- LocationTracker locationTracker = new LocationTrackerBuilder(this)
+ LocationTracker locationTracker = new LocationTracker.Builder(this)
                 .setPriority(LocationTracker.PRIORITY_HIGH)
                 .setDisplacement(150)
                 .setInterval(60000)
                 .build();
 ```
-
-### Observe
+### 2. Start tracking
+```java
+locationTracker.start();
+```
+### 3. Observe
 `LocationTracker` extends `LiveData` so you have to observe its changes inside a `LifeCycleOwner`.
 ```java
 locationTracker.observe(this, new Observer<Resource<Location>>() {
@@ -44,7 +48,22 @@ locationTracker.observe(this, new Observer<Resource<Location>>() {
                if (locationResource.status == Status.SUCCESS) {
                         double lat = locationResource.value.getLatitude();
                         double lon = locationResource.value.getLongitude();
-                    }
+                }
+                if (locationResource.status == Status.ERROR) {
+                        
+                  String message = locationResource.message;
+                  // handle error
+                }
+                if (locationResource.status == Status.LOADING) {
+
+                      // update UI
+                }
             }
+            
         });
 ```
+### 4. Stop tracking
+If you no longer want to receive location updates call `locationTracker.stop()`
+
+## Get last known location
+If you want to get the last known location call `locationTracker.getLastKnownLocation()`.
