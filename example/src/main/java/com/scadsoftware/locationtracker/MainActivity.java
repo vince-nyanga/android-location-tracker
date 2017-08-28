@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.scadsoftware.locationtracker.databinding.ActivityMainBinding;
 import com.vinarah.locationtracker.LocationTracker;
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements LifecycleRegistry
     }
 
 
-
     private void subscribeToLocationChanges() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleRegistry
                     .ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
             return;
         }
-          locationTracker= new LocationTracker.Builder(this)
+        locationTracker = new LocationTracker.Builder(this)
                 .setPriority(LocationTracker.PRIORITY_HIGH)
                 .setDisplacement(150)
                 .setInterval(60000)
@@ -68,10 +68,12 @@ public class MainActivity extends AppCompatActivity implements LifecycleRegistry
     }
 
 
-    public void toggleTracking(View view){
-        if(view.getId() == R.id.start_btn){
+    public void toggleTracking(View view) {
+        if (locationTracker == null)
+            return;
+        if (view.getId() == R.id.start_btn) {
             locationTracker.start();
-        }else{
+        } else {
             locationTracker.stop();
         }
     }
@@ -89,6 +91,19 @@ public class MainActivity extends AppCompatActivity implements LifecycleRegistry
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 subscribeToLocationChanges();
             }
+        }
+    }
+
+    public void getLastLocation(View view) {
+        if (locationTracker == null)
+            return;
+        Location location = locationTracker.getLastKnownLocation();
+        if (location != null) {
+            Toast.makeText(this, "Lat: " + location.getLatitude() + ", Lon: " + location
+                    .getLongitude(), Toast.LENGTH_SHORT)
+                    .show();
+        }else {
+            Toast.makeText(this, "No location", Toast.LENGTH_SHORT).show();
         }
     }
 }

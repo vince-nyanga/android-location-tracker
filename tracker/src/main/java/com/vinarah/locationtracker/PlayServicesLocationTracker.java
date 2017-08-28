@@ -1,5 +1,6 @@
 package com.vinarah.locationtracker;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
@@ -52,16 +53,39 @@ class PlayServicesLocationTracker extends LocationTracker implements GoogleApiCl
         }
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void start(){
         super.start();
+        if(!googleApiClient.isConnected()){
+            connect();
+            return;
+        }
+        LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient,
+                locationRequest, this);
+    }
+
+    @Override
+    public void stop() {
+        super.stop();
+        LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public Location getLastKnownLocation() {
+        return googleApiClient.isConnected() ? LocationServices.FusedLocationApi.getLastLocation
+                (googleApiClient) : null;
+    }
+
+    @Override
+    protected void connect() {
         googleApiClient.connect();
     }
 
     @Override
     protected void disconnect(){
         if(googleApiClient.isConnected()) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
             googleApiClient.disconnect();
         }
     }
@@ -75,8 +99,9 @@ class PlayServicesLocationTracker extends LocationTracker implements GoogleApiCl
     @Override
     @SuppressWarnings({"MissingPermission"})
     public void onConnected(@Nullable Bundle bundle) {
-        LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient,
-                locationRequest, this);
+        if(tracking)
+            start();
+
     }
 
     @Override

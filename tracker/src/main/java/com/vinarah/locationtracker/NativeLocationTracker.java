@@ -1,5 +1,6 @@
 package com.vinarah.locationtracker;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -41,9 +42,27 @@ class NativeLocationTracker extends LocationTracker
     }
 
     @Override
+    public void stop() {
+        super.stop();
+        locationManager.removeUpdates(this);
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public Location getLastKnownLocation() {
+        return locationManager != null ? locationManager.getLastKnownLocation(LocationManager
+                .GPS_PROVIDER) : null;
+    }
+
+    @Override
+    protected void connect() {
+        // No impl
+    }
+
+    @Override
     @SuppressWarnings({"MissingPermission"})
     protected void disconnect() {
-        locationManager.removeUpdates(this);
+        // No impl
     }
 
     @Override

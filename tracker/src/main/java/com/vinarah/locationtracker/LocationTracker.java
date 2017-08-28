@@ -21,7 +21,7 @@ import java.lang.annotation.RetentionPolicy;
 
 
 @SuppressWarnings("WeakerAccess")
-public class LocationTracker extends LiveData<Resource<Location>> {
+public abstract class LocationTracker extends LiveData<Resource<Location>> {
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({PRIORITY_HIGH, PRIORITY_POWER_SAVER, PRIORITY_LOW_POWER})
@@ -31,7 +31,7 @@ public class LocationTracker extends LiveData<Resource<Location>> {
     public static final int PRIORITY_POWER_SAVER = 2;
     public static final int PRIORITY_LOW_POWER = 3;
 
-    private boolean tracking;
+    protected boolean tracking;
 
     public void start() {
         tracking = true;
@@ -39,20 +39,18 @@ public class LocationTracker extends LiveData<Resource<Location>> {
     }
 
     public void stop() {
-        disconnect();
         tracking = false;
     }
 
+    public  abstract Location getLastKnownLocation();
 
-    protected void disconnect(){
+    protected  abstract void connect();
 
-    }
+    protected abstract void disconnect();
 
     @Override
     protected void onActive() {
-        if(tracking){
-            start();
-        }
+       connect();
     }
 
     @Override
