@@ -30,6 +30,7 @@ class PlayServicesLocationTracker extends LocationTracker implements GoogleApiCl
 
     PlayServicesLocationTracker(@NonNull Context context, long interval, int displacement,
                                 @Priority int priority) {
+
         googleApiClient = new GoogleApiClient.Builder(context).addApi(LocationServices.API)
                 .addOnConnectionFailedListener(this).addConnectionCallbacks(this).build();
 

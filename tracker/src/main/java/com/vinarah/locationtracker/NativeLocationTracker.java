@@ -41,6 +41,7 @@ class NativeLocationTracker extends LocationTracker
     }
 
     @Override
+    @SuppressWarnings({"MissingPermission"})
     protected void disconnect() {
         locationManager.removeUpdates(this);
     }
