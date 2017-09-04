@@ -68,7 +68,13 @@ class PlayServicesLocationTracker extends LocationTracker implements GoogleApiCl
     @Override
     public void stop() {
         super.stop();
-        LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
+        if(googleApiClient.isConnected()) {
+            try {
+                LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
+            }catch (Exception e){
+                // ignore
+            }
+        }
     }
 
     @SuppressLint("MissingPermission")
@@ -101,6 +107,8 @@ class PlayServicesLocationTracker extends LocationTracker implements GoogleApiCl
     public void onConnected(@Nullable Bundle bundle) {
         if(tracking)
             start();
+        else
+            stop();
 
     }
 

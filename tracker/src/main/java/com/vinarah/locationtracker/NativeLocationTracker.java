@@ -41,6 +41,7 @@ class NativeLocationTracker extends LocationTracker
                 this);
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void stop() {
         super.stop();
